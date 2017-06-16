@@ -1,0 +1,228 @@
+﻿@model CicleFem1.Models.Scheda
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Dati scheda N.@Model.Numero</h2>
+
+<div>
+    <h4>
+        <span class="label label-info">
+            dal @Html.DisplayFor(model => model.DataI)
+            al @Html.DisplayFor(model => model.DataF)
+        </span>
+    </h4>
+</div>
+
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#grafico" aria-controls="grafico" role="tab" data-toggle="tab">Grafico</a></li>
+        <li role="presentation"><a href="#dati" aria-controls="dati" role="tab" data-toggle="tab">Dati</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="grafico">
+            <canvas id="myChart" >
+            </canvas>
+           @*Tabelle dati sotto il grafico*@
+            <table class="table table-bordered">
+                <tr>
+                    @foreach (var item in Model.DettaglioScheda)
+                    {
+                        int ngg = 0;
+                        ngg = @item.Giorno.Value * 10;
+                        <td>
+                                @item.Giorno<br />
+                            @item.Coito
+                        </td>
+
+                    }
+                </tr>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="dati">
+            <div >
+                <table class="table table-hover">
+                    <thead>
+
+                        <tr>
+                            <th>
+                                Data ora rilevamento
+                            </th>
+                            <th>
+                                Giorno
+                            </th>
+                            <th>
+                                Temperatura
+                            </th>
+                            <th>
+                                Perdite ematiche
+                            </th>
+                            <th colspan="2">
+                                Muco Q.tà
+                            </th>
+                            <th>
+                                Coito
+                            </th>
+                            <th colspan="4">
+                                Utero<br />
+                                Con. Inc. Ape. Pos.
+                            </th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model.DettaglioScheda)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Giorno)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Temperatura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ematic)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Muco)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MucoC)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Coito)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UteCon)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UteInc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UteApe)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UtePos)
+                            </td>
+                           <td>
+                                @Html.ActionLink("Edit", "Edit", "DettaglioSchedas", new { id = item.DettaglioScheda_Id, scheda = item.Scheda_Id }, null) |
+
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div>
+    <button type="button" id="myButton" class="btn btn-primary">
+        Loading state
+    </button>    
+    <label id="dataP" />
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+    var result = @Html.Raw(ViewBag.DataPoints);
+    var label = [];
+        var temp = [];
+        var muco = [];
+        var ematic = [];
+        var data = [];
+    for (var i = 0; i < result.length; i++) {
+        label.push(result[i].g);
+        temp.push(result[i].t);
+        muco.push(result[i].m);
+        ematic.push(result[i].e);
+        data.push(result[i].d);
+    }
+        $('#myButton').click(function () {
+            $('#dataP').text(data);
+        });
+        //Grafico temperature
+    var ctx = document.getElementById("myChart");
+        let myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data,
+                datasets: [
+                    {
+                        label: 'Mestruazioni',
+                        yAxisID: "A",
+                        data: ematic,
+                        backgroundColor: 'rgb(255,0,0)',
+                    },
+                    {
+                        label: 'Muco',
+                       data: muco,
+                        backgroundColor: 'rgb(96,96,96)',
+                    },
+                    {
+                        label: 'Temperatura',
+                        yAxisID: "B",
+                        data: temp,
+                        lineTension: 0,
+                        fill: false,
+                    }
+                ],
+            },
+            options: {
+                legend: {
+                    display: true,
+                },
+                tooltips: {
+                    callbacks: {
+                        display: true,
+                        labelColor: function (tooltipItem, chart) {
+                            return {
+                                data,
+                                borderColor: 'rgb(255, 0, 0)',
+                                backgroundColor: 'rgb(255, 255, 255)'
+                            }
+                        },
+                    },
+                },
+                scales: {
+                    yAxes: [{
+                        id: "A",
+                        type: 'linear',
+                        position: 'right',
+                        tooltips: {
+                            enabled: false
+                        },
+                        ticks: {
+                            max: 50,
+                            min: 0
+                        },
+                        display: false,
+                    },
+                    {
+                        id: "B",
+                        type: 'linear',
+                        position: 'left',
+                        ticks: {
+                            max: 37.5,
+                            min: 36,
+                            stepSize: 0.1
+                        },
+                        display: true,
+                        }],
+                }
+            }
+        });
+
+    </script>
+}

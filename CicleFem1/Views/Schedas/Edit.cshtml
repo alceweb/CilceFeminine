@@ -1,0 +1,84 @@
+﻿@model CicleFem1.Models.Scheda
+
+@{
+    ViewBag.Title = "Edit";
+}
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Scheda</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Scheda_Id)
+        @Html.HiddenFor(model => model.Uid)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumeroG, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumeroG, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumeroG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataI, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="lbldatai" hidden="hidden" class="alert alert-danger"></label>
+                @Html.EditorFor(model => model.DataI, new { htmlAttributes = new { id = "datai", @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DataI, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="lbldataf" hidden="hidden" class="alert alert-danger"></label>
+                @Html.EditorFor(model => model.DataF, new { htmlAttributes = new { id = "dataf", @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DataF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salva" class="btn btn-success" />
+                @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $('.datetimepicker').datetimepicker({
+            locale: 'it',
+            language: 'it',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            format: 'dd-mm-yyyy'
+        });
+        $('#datai').click(function () {
+            $('#lbldatai').show().text('Attenzione! se modifichi questa data devi aggiornare anche i dettagli della scheda');
+        });
+        $('#dataf').click(function () {
+            $('#lbldataf').show().text('Attenzione! se chiudi la scheda TUTTE le rilevazioni inserite dopo la data di chiusura verranno cancellate');
+        });
+    </script>
+
+}

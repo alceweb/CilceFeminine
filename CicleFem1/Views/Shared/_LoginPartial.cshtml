@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @* Menu orizzontale
+                    <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Salve " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Disconnetti</a></li>
+                </ul>*@
+
+            <li>
+                <a href="@Url.Action("Index", "Manage")" title="Gestisci profilo">Profilo <span class="sub_icon fa fa-user-o"></span></a>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()" title="Disconnetti">Logout <span class="sub_icon fa fa-sign-out"></span></a></li>
+
+        }
+    }
+    else
+    {
+        @* Menu orizzontale
+                <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Registrazione", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Accedi", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            </ul>*@
+        <li>
+
+        </li>
+        <li>
+            <a href="@Url.Action("Login", "Account")" id="loginLink" title="Login">Accedi <span class="sub_icon fa fa-sign-in"></span></a>
+        </li>
+
+    }

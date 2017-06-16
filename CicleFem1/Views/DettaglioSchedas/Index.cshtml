@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CicleFem1.Models.DettaglioScheda>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#grafico" aria-controls="grafico" role="tab" data-toggle="tab">Grafico</a></li>
+        <li role="presentation"><a href="#dati" aria-controls="dati" role="tab" data-toggle="tab">Dati</a></li>
+    </ul>
+
+    <!-- Tab panes dati/grafico -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="grafico">
+            Qui il grafico
+        </div>
+        <div role="tabpanel" class="tab-pane" id="dati">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Data)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Giorno)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Temperatura)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Data)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Giorno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Temperatura)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.DettaglioScheda_Id }, new { @class = "fa fa-pencil" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+@section Scripts{
+<script type="text/javascript">
+    $('#myStateButton').on('click', function () {
+        $(this).button('complete') // button text will be "finished!"
+    });
+    $('#myButton').on('click', function () {
+        var $btn = $(this).button('loading')
+        // business logic...
+        $btn.button('reset')
+    })
+
+</script>
+}

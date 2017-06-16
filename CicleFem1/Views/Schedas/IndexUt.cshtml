@@ -1,0 +1,73 @@
+﻿@model IEnumerable<CicleFem1.Models.Scheda>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Le tue schede</h2>
+
+<p>
+    @Html.ActionLink("  Nuova", "Create", null, new { @class = "btn btn-primary fa fa-plus-circle" })
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Scheda N.
+            </th>
+            <th>
+                Giorni previsti
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uid)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        var chiusa = "";
+        if (item.DataF != null)
+        {
+            chiusa = "alert alert-danger";
+        }
+        else
+        {
+            chiusa = "alert alert-success";
+        }
+        <tr class="@chiusa">
+            <td>
+                @Html.ActionLink(" ", "Details", new { id = item.Scheda_Id }, new { @class = "fa fa-pencil fa-2x" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uid)
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", new { id = item.Scheda_Id }, new { @class = "text-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
