@@ -31,7 +31,7 @@ namespace CicleFem1.Controllers
             return View(db.Schedas.Where(u=>u.Uid == ut).OrderByDescending(d => d.DataI).ToList());
         }
 
-        // GET: Schedas/Details/5
+        // GET: Schedas/Details/5e
         public ActionResult Details(int? id)
         {
             if (id == null)
