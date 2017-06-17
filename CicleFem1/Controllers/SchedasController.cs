@@ -43,7 +43,7 @@ namespace CicleFem1.Controllers
             {
                 return HttpNotFound();
             }
-            var dati = db.DettaglioSchedas.Where(s => s.Scheda_Id == id).Select(s => new { g = s.Giorno, t = s.Temperatura, m = s.Muco, e = s.Ematic, d = s.Data }).ToList();
+            var dati = db.DettaglioSchedas.Where(s => s.Scheda_Id == id).Select(s => new { g = s.Giorno, t = s.Temperatura, m = s.Muco, mc = s.MucoC, e = s.Ematic, d = s.Data }).ToList();
             ViewBag.DataPoints = JsonConvert.SerializeObject(dati, _jsonSetting);
             return View(scheda);
         }

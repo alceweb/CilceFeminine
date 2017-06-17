@@ -143,3 +143,4 @@ C:\Visual Studio 2015\Progetti\CicleFeminine\CicleFem1\CicleFem1\obj\Debug\Cicle
 C:\Visual Studio 2015\Progetti\CicleFeminine\CicleFem1\CicleFem1\obj\Debug\CicleFem1.Migrations.giornoetemp.resources
 C:\Visual Studio 2015\Progetti\CicleFeminine\CicleFem1\CicleFem1\obj\Debug\CicleFem1.csprojResolveAssemblyReference.cache
 C:\Visual Studio 2015\Progetti\CicleFeminine\CicleFem1\CicleFem1\obj\Debug\CicleFem1.Migrations.dettaglischeda.resources
+C:\Visual Studio 2015\Progetti\CicleFeminine\CicleFem1\CicleFem1\obj\Debug\CicleFem1.Migrations.sensazione.resources

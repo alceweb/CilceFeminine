@@ -46,7 +46,7 @@ namespace CicleFem1.Controllers
         // Per ulteriori dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DettaglioScheda_Id,Data,Giorno,Temperatura,Scheda_Id,Ematic,Muco,MucoC,Coito,UteCon,UteInc,UteApe,UtePos,Note")] DettaglioScheda dettaglioScheda)
+        public ActionResult Create([Bind(Include = "DettaglioScheda_Id,Data,Giorno,Temperatura,Scheda_Id,Ematic,Muco,MucoC,Coito,UteCon,UteInc,UteApe,UtePos,Sensazione,Note")] DettaglioScheda dettaglioScheda)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace CicleFem1.Controllers
         // Per ulteriori dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DettaglioScheda_Id,Data,Giorno,Temperatura,Scheda_Id,Ematic,Muco,MucoC,Coito,UteCon,UteInc,UteApe,UtePos,Note")] DettaglioScheda dettaglioScheda)
+        public ActionResult Edit([Bind(Include = "DettaglioScheda_Id,Data,Giorno,Temperatura,Scheda_Id,Ematic,Muco,MucoC,Coito,UteCon,UteInc,UteApe,UtePos,Sensazione,Note")] DettaglioScheda dettaglioScheda)
         {
             if (ModelState.IsValid)
             {

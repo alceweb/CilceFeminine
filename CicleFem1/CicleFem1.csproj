@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201705191604298_dettaglischeda.Designer.cs">
       <DependentUpon>201705191604298_dettaglischeda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706161556104_sensazione.cs" />
+    <Compile Include="Migrations\201706161556104_sensazione.Designer.cs">
+      <DependentUpon>201706161556104_sensazione.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -287,6 +291,7 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.bundle.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -460,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705191604298_dettaglischeda.resx">
       <DependentUpon>201705191604298_dettaglischeda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706161556104_sensazione.resx">
+      <DependentUpon>201706161556104_sensazione.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

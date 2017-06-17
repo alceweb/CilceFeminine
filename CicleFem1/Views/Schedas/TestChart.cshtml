@@ -28,16 +28,17 @@
         <div role="tabpanel" class="tab-pane active" id="grafico">
             <canvas id="myChart" >
             </canvas>
-           @*Tabelle dati sotto il grafico*@
-            <table class="table table-bordered">
+            @*Tabelle dati sotto il grafico*@
+            <table class="table table-bordered" style="font-size:0.7em">
                 <tr>
                     @foreach (var item in Model.DettaglioScheda)
                     {
-                        int ngg = 0;
-                        ngg = @item.Giorno.Value * 10;
-                        <td>
-                                @item.Giorno<br />
-                            @item.Coito
+                        var di = 100 / Model.NumeroG;
+                        var larg = di + "%";
+                        <td class="text-center" style="@larg">
+                            @Model.NumeroG<br />
+                            @item.Giorno<br />
+                            @larg
                         </td>
 
                     }
@@ -152,6 +153,42 @@
         $('#myButton').click(function () {
             $('#dataP').text(data);
         });
+
+        // Define a plugin to provide data labels
+        Chart.plugins.register({
+            afterDatasetsDraw: function (chart, easing) {
+                // To only draw at the end of animation, check for easing === 1
+                var ctx = chart.ctx;
+
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (!meta.hidden) {
+                        meta.data.forEach(function (element, index) {
+                            // Draw the text in black, with the specified font
+                            ctx.fillStyle = 'rgb(0, 0, 0)';
+
+                            var fontSize = 16;
+                            var fontStyle = 'normal';
+                            var fontFamily = 'Helvetica Neue';
+                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                            // Just naively convert to string for now
+                            var dataString = dataset.data[index].toString();
+
+                            // Make sure alignment settings are correct
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+
+                            var padding = 5;
+                            var position = element.tooltipPosition();
+                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                        });
+                    }
+                });
+            }
+        });
+
+
         //Grafico temperature
     var ctx = document.getElementById("myChart");
         let myChart = new Chart(ctx, {
@@ -160,65 +197,50 @@
                 labels: data,
                 datasets: [
                     {
+                        label: 'Temperatura',
+                        yAxisID: "1",
+                        data: temp,
+                        lineTension: 0,
+                        fill: false,
+                    },
+                    {
                         label: 'Mestruazioni',
                         yAxisID: "A",
                         data: ematic,
                         backgroundColor: 'rgb(255,0,0)',
                     },
-                    {
+                   {
                         label: 'Muco',
                        data: muco,
                         backgroundColor: 'rgb(96,96,96)',
                     },
-                    {
-                        label: 'Temperatura',
-                        yAxisID: "B",
-                        data: temp,
-                        lineTension: 0,
-                        fill: false,
-                    }
                 ],
             },
             options: {
                 legend: {
                     display: true,
                 },
-                tooltips: {
-                    callbacks: {
-                        display: true,
-                        labelColor: function (tooltipItem, chart) {
-                            return {
-                                data,
-                                borderColor: 'rgb(255, 0, 0)',
-                                backgroundColor: 'rgb(255, 255, 255)'
-                            }
-                        },
-                    },
-                },
                 scales: {
                     yAxes: [{
                         id: "A",
                         type: 'linear',
                         position: 'right',
-                        tooltips: {
-                            enabled: false
-                        },
                         ticks: {
                             max: 50,
                             min: 0
                         },
                         display: false,
                     },
-                    {
-                        id: "B",
+                        {
+                        id: "1",
                         type: 'linear',
                         position: 'left',
-                        ticks: {
+                       ticks: {
                             max: 37.5,
                             min: 36,
-                            stepSize: 0.1
+                            stepSize: 0.1,
+                            display: false,
                         },
-                        display: true,
                         }],
                 }
             }

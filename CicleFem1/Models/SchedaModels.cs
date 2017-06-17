@@ -34,6 +34,8 @@ namespace CicleFem1.Models
         public String UteApe { get; set; }
         [Display(Name = "Posizione")]
         public String UtePos { get; set; }
+        [Display(Name = "Sensazione")]
+        public String Sensazione { get; set; }
         [Display(Name = "Note")]
         public String Note { get; set; }
 

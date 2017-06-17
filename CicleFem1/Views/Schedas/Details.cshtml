@@ -25,25 +25,33 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
+        <!--Tab grafico-->
         <div role="tabpanel" class="tab-pane active" id="grafico">
             <canvas id="myChart" >
             </canvas>
-           @*Tabelle dati sotto il grafico*@
-            <table class="table table-bordered">
+            @*Tabelle dati sotto il grafico*@
+            <table class="table table-bordered" style="font-size:0.7em">
                 <tr>
                     @foreach (var item in Model.DettaglioScheda)
                     {
-                        int ngg = 0;
-                        ngg = @item.Giorno.Value * 10;
-                        <td>
-                                @item.Giorno<br />
-                            @item.Coito
-                        </td>
+                        var di = 100 / Model.NumeroG;
+                        var larg = di + "%; padding:0";
+                        <td class="text-center" style="@larg">
+                            <a href="@Url.Action("Edit", "DettaglioSchedas", new { id = item.DettaglioScheda_Id, scheda = item.Scheda_Id })">
+                                <span>@item.Data.ToString("dd MMM")</span><br />
+                                <span class="text-danger"><strong>@item.Data.ToString("HH:mm")</strong></span><br />
+                            </a>
+                            <span class="label label-primary">@Model.NumeroG</span><br/>
+                            <span class="label label-success">@item.MucoC</span><br />
+                            <span class="label label-info">@item.UteApe</span><br/>
+                            <span class="label label-danger">@item.Sensazione</span><br />
+</td>
 
                     }
                 </tr>
             </table>
         </div>
+        <!--Tab dati-->
         <div role="tabpanel" class="tab-pane" id="dati">
             <div >
                 <table class="table table-hover">
@@ -67,6 +75,9 @@
                             </th>
                             <th>
                                 Coito
+                            </th>
+                            <th>
+                                Sensazione
                             </th>
                             <th colspan="4">
                                 Utero<br />
@@ -98,6 +109,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Coito)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sensazione)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.UteCon)
@@ -142,15 +156,17 @@
         var muco = [];
         var ematic = [];
         var data = [];
+        var mucoC = [];
     for (var i = 0; i < result.length; i++) {
         label.push(result[i].g);
         temp.push(result[i].t);
         muco.push(result[i].m);
         ematic.push(result[i].e);
         data.push(result[i].d);
+        mucoC.push(result[i].mc);
     }
         $('#myButton').click(function () {
-            $('#dataP').text(data);
+            $('#dataP').text(mucoC);
         });
         //Grafico temperature
     var ctx = document.getElementById("myChart");
@@ -167,7 +183,7 @@
                     },
                     {
                         label: 'Muco',
-                       data: muco,
+                        data: muco,
                         backgroundColor: 'rgb(96,96,96)',
                     },
                     {
@@ -185,13 +201,13 @@
                 },
                 tooltips: {
                     callbacks: {
-                        display: true,
-                        labelColor: function (tooltipItem, chart) {
-                            return {
-                                data,
-                                borderColor: 'rgb(255, 0, 0)',
-                                backgroundColor: 'rgb(255, 255, 255)'
+                        label: function (tooltipItem, data) {
+                            var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                            if (label) {
+                                label += ': ';
                             }
+                            label += tooltipItem.yLabel;
+                            return label;
                         },
                     },
                 },
