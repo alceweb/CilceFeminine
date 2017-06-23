@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201706161556104_sensazione.Designer.cs">
       <DependentUpon>201706161556104_sensazione.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706190838308_osservatori.cs" />
+    <Compile Include="Migrations\201706190838308_osservatori.Designer.cs">
+      <DependentUpon>201706190838308_osservatori.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -468,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706161556104_sensazione.resx">
       <DependentUpon>201706161556104_sensazione.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706190838308_osservatori.resx">
+      <DependentUpon>201706190838308_osservatori.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

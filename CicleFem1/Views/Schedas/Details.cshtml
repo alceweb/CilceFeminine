@@ -15,6 +15,9 @@
     </h4>
 </div>
 
+
+
+
 <div>
 
     <!-- Nav tabs -->
@@ -27,30 +30,75 @@
     <div class="tab-content">
         <!--Tab grafico-->
         <div role="tabpanel" class="tab-pane active" id="grafico">
-            <canvas id="myChart" >
-            </canvas>
+            <canvas id="myChart" ></canvas>
             @*Tabelle dati sotto il  grafico*@
-            <table class="table table-bordered" style="font-size:0.7em">
-                <tr>
-                    @foreach (var item in Model.DettaglioScheda)
-                    {
-                        var di = 100 / Model.NumeroG;
-                        var larg = di + "%; padding:0";
-                        <td class="text-center" style="@larg">
-                            <a href="@Url.Action("Edit", "DettaglioSchedas", new { id = item.DettaglioScheda_Id, scheda = item.Scheda_Id })">
-                                <span>@item.Data.ToString("dd MMM")</span><br />
-                                <span class="text-danger"><strong>@item.Data.ToString("HH:mm")</strong></span><br />
-                            </a>
-                            <span class="label label-primary">@Model.NumeroG</span><br/>
-                            <span class="label label-success">@item.MucoC</span><br />
-                            <span class="label label-info">@item.UteApe</span><br/>
-                            <span class="label label-danger">@item.Sensazione</span><br />
-</td>
+            <div class="row">
+                <table class="table table-bordered" style="font-size:0.7em">
+                    <tr>
+                        @foreach (var item in Model.DettaglioScheda)
+                        {
+                            var di = 100 / Model.NumeroG;
+                            var larg = di + "%; padding:0";
+                            <td class="text-center" style="width:@larg">
+                                <div class="div-zoom">
+                                    <div>
+                                        <a href="@Url.Action("Edit", "DettaglioSchedas", new { id = item.DettaglioScheda_Id, scheda = item.Scheda_Id })">
+                                            <span>@item.Giorno</span><br />
+                                            <span>@item.Data.ToString("dd MMM")</span><br />
+                                            <span><strong>@item.Data.ToString("HH:mm")</strong></span><br />
+                                            <span class="label label-success">@item.MucoC</span><br />
+                                            <span class="label label-info">@item.UteApe</span><br />
+                                            <span class="label label-info">@item.UtePos</span><br />
+                                            <span class="label label-info">@item.UteCon</span><br />
+                                            <span class="label label-info">@item.UteInc</span><br />
+                                            <span class="label label-danger">@item.Sensazione</span><br />
+                                            <span class="label label-coito">@item.Coito</span><br />
+                                        </a>
 
-                    }
-                </tr>
-            </table>
+                                    </div>
+                                </div>
+                            </td>
+
+                        }
+                    </tr>
+                </table>
+
+            </div>
+            <!--Legenda -->
+            <div>
+                <ul class="list-unstyled">
+                    <li>
+                        <span class="label label-success"><em>Muco.</em> Caratteristica: Opaco, Trasparente, Appiccicoso, Filante, Denso, Elastico</span><br />
+                    </li>
+                    <li>
+                        <span class="label label-info"><em>Cervice uterina.</em> </span>
+                        <ul>
+                            <li>
+                                <span class="label label-info">Apertura: Chiusa, Socchiusa, Aperta</span>
+                            </li>
+                            <li>
+                                <span class="label label-info">Posizione: Alto, Medio, Basso</span>
+
+                            </li>
+                            <li>
+                                <span class="label label-info">Consistenza: Dura, Soffice</span>
+                            </li>
+                            <li>
+                                <span class="label label-info">Inclinazione: Verticale, Inclinata</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="label label-danger">Sensazione: Asciutto, Umido, Bagnato, Lubrificato</span>
+                    </li>
+                    <li>
+                        <span class="label label-coito">Coito: X completo, I interrotto, O senza eiaculazione, P con preservativo o diaframma </span><br />
+
+                    </li>
+                </ul>
+            </div>
         </div>
+
         <!--Tab dati-->
         <div role="tabpanel" class="tab-pane" id="dati">
             <div >
@@ -139,12 +187,6 @@
     </div>
 
 </div>
-<div>
-    <button type="button" id="myButton" class="btn btn-primary">
-        Loading state
-    </button>    
-    <label id="dataP" />
-</div>
 
 
 @section Scripts{
@@ -164,10 +206,7 @@
         ematic.push(result[i].e);
         data.push(result[i].d);
         mucoC.push(result[i].mc);
-    }
-        $('#myButton').click(function () {
-            $('#dataP').text(mucoC);
-        });
+        };
         //Grafico temperature
     var ctx = document.getElementById("myChart");
         let myChart = new Chart(ctx, {
@@ -176,23 +215,28 @@
                 labels: data,
                 datasets: [
                     {
-                        label: 'Mestruazioni',
-                        yAxisID: "A",
-                        data: ematic,
-                        backgroundColor: 'rgb(255,0,0)',
-                    },
-                    {
-                        label: 'Muco',
-                        data: muco,
-                        backgroundColor: 'rgb(96,96,96)',
-                    },
-                    {
                         label: 'Temperatura',
                         yAxisID: "B",
                         data: temp,
                         lineTension: 0,
+                        pointBackgroundColor: '#000',
+                        borderColor: '#000',
+                        borderWidth: 2,
                         fill: false,
-                    }
+                    },
+                    {
+                        label: 'Mestruazioni',
+                        yAxisID: "A",
+                        data: ematic,
+                        backgroundColor: 'rgb(255,0,0,0.4)',
+                        pointRadius: 0,
+                    },
+                    {
+                        label: 'Muco',
+                        data: muco,
+                        backgroundColor: 'rgb(96,96,96,0.4)',
+                        pointRadius: 0,
+                   },
                 ],
             },
             options: {

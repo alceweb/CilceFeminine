@@ -59,4 +59,16 @@ namespace CicleFem1.Models
 
         public virtual ICollection<DettaglioScheda> DettaglioScheda { get; set; }
     }
+
+    public class Osservatori
+    {
+        [Key]
+        public int Osservatore_Id { get; set; }
+        [Display(Name = "Tipo di osservatore")]
+        public string TipoOsservatore { get; set; }
+        public string Uid { get; set; }
+        [Display(Name = "Osservatore")]
+        public string Id { get; set; }
+        public virtual ApplicationUser Cognome { get; set; }
+    }
 }

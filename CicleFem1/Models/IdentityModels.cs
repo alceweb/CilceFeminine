@@ -37,5 +37,6 @@ namespace CicleFem1.Models
         }
         public DbSet<Scheda> Schedas { get; set; }
         public DbSet<DettaglioScheda> DettaglioSchedas { get; set; }
+        public DbSet<Osservatori> Osservatoris { get; set; }
     }
 }

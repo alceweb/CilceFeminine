@@ -88,6 +88,8 @@ namespace CicleFem1.Controllers
             {
                 scheda.Numero = 1;
             }
+            double giorniadd = (double)scheda.NumeroG;
+            scheda.DataF =  scheda.DataI.AddDays(giorniadd);
             var inizio = scheda.DataI;
             var giorni = scheda.NumeroG;
             if (ModelState.IsValid)
